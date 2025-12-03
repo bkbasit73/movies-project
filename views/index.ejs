@@ -1,0 +1,38 @@
+<div class="row align-items-center mb-4">
+  <div class="col">
+    <h1 class="display-5">Movies</h1>
+    <p class="lead">Discover and manage your favorite movies.</p>
+  </div>
+  <% if (currentUser) { %>
+  <div class="col-auto">
+    <a href="/movies/new" class="btn btn-primary btn-lg rounded-pill">Add Movie</a>
+  </div>
+  <% } %>
+</div>
+
+<div class="row">
+  <% if (movies && movies.length) { %>
+    <% movies.forEach(function(movie) { %>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <% if (movie.posterUrl) { %>
+        <img src="<%= movie.posterUrl %>" class="card-img-top" alt="<%= movie.name %>">
+        <% } %>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= movie.name %></h5>
+          <p class="card-text text-muted mb-1"><%= movie.year %></p>
+          <p class="card-text flex-grow-1">
+            <%= movie.description.length > 120 ? movie.description.substring(0, 120) + '...' : movie.description %>
+          </p>
+          <p class="card-text">
+            <strong>Rating:</strong> <%= movie.rating %>/10
+          </p>
+          <a href="/movies/<%= movie._id %>" class="btn btn-outline-primary mt-2">View Details</a>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  <% } else { %>
+  <p>No movies yet.</p>
+  <% } %>
+</div>
